@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LeanCanvasEditor</title>
 
     <link
@@ -14,6 +15,49 @@
   </head>
   <body>
     <div id="app">
+      <b-navbar>
+        <template slot="brand">
+          <b-navbar-item>
+            <h1 class="title">LCE</h1>
+            <h1 class="subtitle"> ：リーンキャンバスエディタ</h1>
+          </b-navbar-item>
+        </template>
+
+        <template slot="start"> </template>
+
+        <template slot="end">
+          <b-navbar-item tag="div">
+            <div class="buttons">
+              <b-field class="file">
+                <b-button
+                  type="is-warning"
+                  icon-left="delete"
+                  @click="confirmClear()"
+                >
+                  クリア
+                </b-button>
+                <b-upload v-model="file">
+                  <a class="button is-primary">
+                    <b-icon icon="import"></b-icon>
+                    <span>開く</span>
+                  </a>
+                </b-upload>
+                <span class="file-name" v-if="file">
+                  {{ file.name }}
+                </span>
+                <b-button
+                  type="is-primary"
+                  icon-left="export"
+                  @click="exportJson(JSON.stringify(canvas),'leanCanvasData.json')"
+                >
+                  保存
+                </b-button>
+              </b-field>
+            </div>
+          </b-navbar-item>
+        </template>
+      </b-navbar>
+
       <section class="section">
         <b-field label="タイトル">
           <b-input v-model="canvas.title"></b-input>
@@ -202,6 +246,7 @@
         data() {
           return {
             maxLength: 200,
+            file: null,
             canvas: {
               title: "service-name",
               memo: "memo",
@@ -240,7 +285,53 @@
             },
           };
         },
-        methods: {},
+        methods: {
+          exportJson(content, fileName) {
+            var a = document.createElement("a");
+            var file = new Blob([content], { type: "text/plain" });
+            a.href = URL.createObjectURL(file);
+            a.download = fileName;
+            a.click();
+          },
+          confirmClear() {
+            let self = this;
+            this.$buefy.dialog.confirm({
+              title: "クリア",
+              message: "現在のキャンバスをクリアしますか？",
+              confirmText: "クリアする",
+              cancelText: "キャンセル",
+              type: "is-danger",
+              hasIcon: true,
+              onConfirm: () => {
+                self.$buefy.toast.open("キャンバスをクリアしました");
+                self.file = null;
+                self.canvas = {};
+              },
+            });
+          },
+        },
+        watch: {
+          file: function (o, n) {
+            var reader = new FileReader();
+            let self = this;
+            reader.onload = (e) => {
+              try {
+                let readData = JSON.parse(e.target.result);
+                // キャンバスに読み込み
+                self.canvas = readData;
+              } catch {
+                // 読み込みファイルをクリア
+                self.file = null;
+                this.$buefy.toast.open({
+                  duration: 3000,
+                  message: "読み込み失敗",
+                  type: "is-danger",
+                });
+              }
+            };
+            reader.readAsText(o);
+          },
+        },
       });
     </script>
   </body>
