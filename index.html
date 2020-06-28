@@ -19,7 +19,7 @@
         <template slot="brand">
           <b-navbar-item>
             <h1 class="title">LCE</h1>
-            <h1 class="subtitle"> ：リーンキャンバスエディタ</h1>
+            <h1 class="subtitle">：リーンキャンバスエディタ</h1>
           </b-navbar-item>
         </template>
 
@@ -30,27 +30,28 @@
             <div class="buttons">
               <b-field class="file">
                 <b-button
-                  type="is-warning"
+                  type="is-danger"
                   icon-left="delete"
                   @click="confirmClear()"
+                  outlined
                 >
                   クリア
                 </b-button>
                 <b-upload v-model="file">
                   <a class="button is-primary">
                     <b-icon icon="import"></b-icon>
-                    <span>開く</span>
+                    <span>JSONインポート</span>
                   </a>
                 </b-upload>
                 <span class="file-name" v-if="file">
                   {{ file.name }}
                 </span>
                 <b-button
-                  type="is-primary"
+                  type="is-info"
                   icon-left="export"
                   @click="exportJson(JSON.stringify(canvas),'leanCanvasData.json')"
                 >
-                  保存
+                  JSONエクスポート
                 </b-button>
               </b-field>
             </div>
@@ -71,15 +72,15 @@
                   class="tile is-child notification"
                   :class="[canvas.problem && canvas.existing_alternatives ? 'card': 'is-warning']"
                 >
-                  <p class="subtitle">2．何故お客様は喜んでくれる？</p>
-                  <b-field label="課題">
+                  <p class="subtitle is-6">2．何故お客様は喜んでくれる？</p>
+                  <b-field label="課題" label-position="on-border">
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
                       v-model="canvas.problem"
                     ></b-input>
                   </b-field>
-                  <b-field label="既存の代替品">
+                  <b-field label="既存の代替品" label-position="on-border">
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
@@ -93,8 +94,8 @@
                   class="tile is-child notification"
                   :class="[canvas.solution ? 'card': 'is-warning']"
                 >
-                  <p class="subtitle">4．具体的に何を提供する？</p>
-                  <b-field label="ソリューション">
+                  <p class="subtitle is-6">4．具体的に何を提供する？</p>
+                  <b-field label="ソリューション" label-position="on-border">
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
@@ -106,8 +107,8 @@
                   class="tile is-child notification"
                   :class="[canvas.key_metrics ? 'card': 'is-warning']"
                 >
-                  <p class="subtitle">8．喜んだことをどうやって知る？</p>
-                  <b-field label="主要指数">
+                  <p class="subtitle is-6">8．喜んだことをどうやって知る？</p>
+                  <b-field label="主要指数" label-position="on-border">
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
@@ -121,17 +122,17 @@
                   class="tile is-child notification"
                   :class="[canvas.unique_value_proposition && canvas.hightlevel_concept ? 'card': 'is-warning']"
                 >
-                  <p class="subtitle">
+                  <p class="subtitle is-6">
                     3．なぜお客様は我々から買いたくなる？
                   </p>
-                  <b-field label="独自の価値提供">
+                  <b-field label="独自の価値提供" label-position="on-border">
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
                       v-model="canvas.unique_value_proposition"
                     ></b-input>
                   </b-field>
-                  <b-field label="わかりやすいコンセプト">
+                  <b-field label="わかりやすいコンセプト" label-position="on-border">
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
@@ -145,8 +146,10 @@
                   class="tile is-child notification"
                   :class="[canvas.unfair_advantage ? 'card': 'is-warning']"
                 >
-                  <p class="subtitle">9．なぜ我々は喜ばせることができる？</p>
-                  <b-field label="圧倒的な優位性">
+                  <p class="subtitle is-6">
+                    9．なぜ我々は喜ばせることができる？
+                  </p>
+                  <b-field label="圧倒的な優位性" label-position="on-border">
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
@@ -158,10 +161,10 @@
                   class="tile is-child notification"
                   :class="[canvas.channels ? 'card': 'is-warning']"
                 >
-                  <p class="subtitle">
+                  <p class="subtitle is-6">
                     5．どうやってコミュニケーションする？
                   </p>
-                  <b-field label="チャネル">
+                  <b-field label="チャネル" label-position="on-border">
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
@@ -175,15 +178,15 @@
                   class="tile is-child notification"
                   :class="[canvas.customer && canvas.early_adaptor ? 'card': 'is-warning']"
                 >
-                  <p class="subtitle">1．誰に喜んでほしい？</p>
-                  <b-field label="顧客セグメント">
+                  <p class="subtitle is-6">1．誰に喜んでほしい？</p>
+                  <b-field label="顧客セグメント" label-position="on-border">
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
                       v-model="canvas.customer"
                     ></b-input>
                   </b-field>
-                  <b-field label="アーリーアダプター">
+                  <b-field label="アーリーアダプター" label-position="on-border">
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
@@ -199,8 +202,8 @@
                   class="tile is-child notification"
                   :class="[canvas.cost_structure ? 'card': 'is-warning']"
                 >
-                  <p class="subtitle">7．コストはどれくらいかかる？</p>
-                  <b-field label="コスト構造">
+                  <p class="subtitle is-6">7．コストはどれくらいかかる？</p>
+                  <b-field label="コスト構造" label-position="on-border">
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
@@ -214,10 +217,10 @@
                   class="tile is-child notification"
                   :class="[canvas.revenue_streams ? 'card': 'is-warning']"
                 >
-                  <p class="subtitle">
+                  <p class="subtitle is-6">
                     6．結果として我々には何がもたらされる？
                   </p>
-                  <b-field label="収入の流れ">
+                  <b-field label="収入の流れ" label-position="on-border">
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
@@ -303,15 +306,19 @@
               type: "is-danger",
               hasIcon: true,
               onConfirm: () => {
-                self.$buefy.toast.open("キャンバスをクリアしました");
                 self.file = null;
                 self.canvas = {};
+                self.$buefy.toast.open("キャンバスをクリアしました");
               },
             });
           },
         },
         watch: {
           file: function (o, n) {
+            if (!o) {
+              return;
+            }
+
             var reader = new FileReader();
             let self = this;
             reader.onload = (e) => {
@@ -319,6 +326,11 @@
                 let readData = JSON.parse(e.target.result);
                 // キャンバスに読み込み
                 self.canvas = readData;
+                self.$buefy.toast.open({
+                  duration: 3000,
+                  message: "キャンバスを読み込みました",
+                  type: "is-success",
+                });
               } catch {
                 // 読み込みファイルをクリア
                 self.file = null;
