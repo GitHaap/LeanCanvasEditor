@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>LeanCanvasEditor</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css" />
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <section class="section">
+        <b-field label="タイトル">
+          <b-input v-model="canvas.title"></b-input>
+        </b-field>
+        <b-field label="リーンキャンバス"> </b-field>
+        <div class="tile is-ancestor">
+          <div class="tile is-vertical">
+            <div class="tile">
+              <div class="tile is-parent">
+                <article
+                  class="tile is-child notification"
+                  :class="[canvas.problem && canvas.existing_alternatives ? 'card': 'is-warning']"
+                >
+                  <p class="subtitle">2．何故お客様は喜んでくれる？</p>
+                  <b-field label="課題">
+                    <b-input
+                      :maxlength="maxLength"
+                      type="textarea"
+                      v-model="canvas.problem"
+                    ></b-input>
+                  </b-field>
+                  <b-field label="既存の代替品">
+                    <b-input
+                      :maxlength="maxLength"
+                      type="textarea"
+                      v-model="canvas.existing_alternatives"
+                    ></b-input>
+                  </b-field>
+                </article>
+              </div>
+              <div class="tile is-parent is-vertical">
+                <article
+                  class="tile is-child notification"
+                  :class="[canvas.solution ? 'card': 'is-warning']"
+                >
+                  <p class="subtitle">4．具体的に何を提供する？</p>
+                  <b-field label="ソリューション">
+                    <b-input
+                      :maxlength="maxLength"
+                      type="textarea"
+                      v-model="canvas.solution"
+                    ></b-input>
+                  </b-field>
+                </article>
+                <article
+                  class="tile is-child notification"
+                  :class="[canvas.key_metrics ? 'card': 'is-warning']"
+                >
+                  <p class="subtitle">8．喜んだことをどうやって知る？</p>
+                  <b-field label="主要指数">
+                    <b-input
+                      :maxlength="maxLength"
+                      type="textarea"
+                      v-model="canvas.key_metrics"
+                    ></b-input>
+                  </b-field>
+                </article>
+              </div>
+              <div class="tile is-parent">
+                <article
+                  class="tile is-child notification"
+                  :class="[canvas.unique_value_proposition && canvas.hightlevel_concept ? 'card': 'is-warning']"
+                >
+                  <p class="subtitle">
+                    3．なぜお客様は我々から買いたくなる？
+                  </p>
+                  <b-field label="独自の価値提供">
+                    <b-input
+                      :maxlength="maxLength"
+                      type="textarea"
+                      v-model="canvas.unique_value_proposition"
+                    ></b-input>
+                  </b-field>
+                  <b-field label="わかりやすいコンセプト">
+                    <b-input
+                      :maxlength="maxLength"
+                      type="textarea"
+                      v-model="canvas.hightlevel_concept"
+                    ></b-input>
+                  </b-field>
+                </article>
+              </div>
+              <div class="tile is-parent is-vertical">
+                <article
+                  class="tile is-child notification"
+                  :class="[canvas.unfair_advantage ? 'card': 'is-warning']"
+                >
+                  <p class="subtitle">9．なぜ我々は喜ばせることができる？</p>
+                  <b-field label="圧倒的な優位性">
+                    <b-input
+                      :maxlength="maxLength"
+                      type="textarea"
+                      v-model="canvas.unfair_advantage"
+                    ></b-input>
+                  </b-field>
+                </article>
+                <article
+                  class="tile is-child notification"
+                  :class="[canvas.channels ? 'card': 'is-warning']"
+                >
+                  <p class="subtitle">
+                    5．どうやってコミュニケーションする？
+                  </p>
+                  <b-field label="チャネル">
+                    <b-input
+                      :maxlength="maxLength"
+                      type="textarea"
+                      v-model="canvas.channels"
+                    ></b-input>
+                  </b-field>
+                </article>
+              </div>
+              <div class="tile is-parent">
+                <article
+                  class="tile is-child notification"
+                  :class="[canvas.customer && canvas.early_adaptor ? 'card': 'is-warning']"
+                >
+                  <p class="subtitle">1．誰に喜んでほしい？</p>
+                  <b-field label="顧客セグメント">
+                    <b-input
+                      :maxlength="maxLength"
+                      type="textarea"
+                      v-model="canvas.customer"
+                    ></b-input>
+                  </b-field>
+                  <b-field label="アーリーアダプター">
+                    <b-input
+                      :maxlength="maxLength"
+                      type="textarea"
+                      v-model="canvas.early_adaptor"
+                    ></b-input>
+                  </b-field>
+                </article>
+              </div>
+            </div>
+            <div class="tile">
+              <div class="tile is-parent">
+                <article
+                  class="tile is-child notification"
+                  :class="[canvas.cost_structure ? 'card': 'is-warning']"
+                >
+                  <p class="subtitle">7．コストはどれくらいかかる？</p>
+                  <b-field label="コスト構造">
+                    <b-input
+                      :maxlength="maxLength"
+                      type="textarea"
+                      v-model="canvas.cost_structure"
+                    ></b-input>
+                  </b-field>
+                </article>
+              </div>
+              <div class="tile is-parent">
+                <article
+                  class="tile is-child notification"
+                  :class="[canvas.revenue_streams ? 'card': 'is-warning']"
+                >
+                  <p class="subtitle">
+                    6．結果として我々には何がもたらされる？
+                  </p>
+                  <b-field label="収入の流れ">
+                    <b-input
+                      :maxlength="maxLength"
+                      type="textarea"
+                      v-model="canvas.revenue_streams"
+                    ></b-input>
+                  </b-field>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <b-field label="メモ">
+          <b-input
+            :maxlength="maxLength"
+            type="textarea"
+            v-model="canvas.memo"
+          ></b-input>
+        </b-field>
+      </section>
+    </div>
+
+    <script>
+      let app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            maxLength: 200,
+            canvas: {
+              title: "service-name",
+              memo: "memo",
+              // 顧客
+              customer: "1_a",
+              // アーリーアダプター
+              early_adaptor: "1_b",
+
+              // 課題
+              problem: "2_a",
+              // 代替品
+              existing_alternatives: "2_b",
+
+              // 独自の価値提案
+              unique_value_proposition: "3_a",
+              // 分かりやすいコンセプト
+              hightlevel_concept: "3_b",
+
+              // ソリューション
+              solution: "4",
+
+              // チャネル
+              channels: "5",
+
+              // 収入の流れ
+              revenue_streams: "6",
+
+              // コスト構造
+              cost_structure: "7",
+
+              // 主要指標
+              key_metrics: "8",
+
+              // 圧倒的な優位性
+              unfair_advantage: "9",
+            },
+          };
+        },
+        methods: {},
+      });
+    </script>
+  </body>
+</html>
