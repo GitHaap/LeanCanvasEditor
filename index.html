@@ -18,8 +18,8 @@
       <b-navbar>
         <template slot="brand">
           <b-navbar-item>
-            <h1 class="title">LCE</h1>
-            <h1 class="subtitle">：リーンキャンバスエディタ</h1>
+            <h1 class="title is-4">LCE</h1>
+            <h1 class="subtitle is-6">：リーンキャンバスエディタ</h1>
           </b-navbar-item>
         </template>
 
@@ -30,6 +30,7 @@
             <div class="buttons">
               <b-field class="file">
                 <b-button
+                  size="is-small"
                   type="is-danger"
                   icon-left="delete"
                   @click="confirmClear()"
@@ -38,21 +39,14 @@
                   クリア
                 </b-button>
                 <b-upload v-model="file">
-                  <a class="button is-primary">
-                    <b-icon icon="import"></b-icon>
+                  <a class="button is-primary is-small">
+                    <b-icon size="is-small" icon="import"></b-icon>
                     <span>JSONインポート</span>
                   </a>
                 </b-upload>
-                <span class="file-name" v-if="file">
+                <span class="is-small" v-if="file">
                   {{ file.name }}
                 </span>
-                <b-button
-                  type="is-info"
-                  icon-left="export"
-                  @click="exportJson(JSON.stringify(canvas),'leanCanvasData.json')"
-                >
-                  JSONエクスポート
-                </b-button>
               </b-field>
             </div>
           </b-navbar-item>
@@ -132,7 +126,10 @@
                       v-model="canvas.unique_value_proposition"
                     ></b-input>
                   </b-field>
-                  <b-field label="わかりやすいコンセプト" label-position="on-border">
+                  <b-field
+                    label="わかりやすいコンセプト"
+                    label-position="on-border"
+                  >
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
@@ -186,7 +183,10 @@
                       v-model="canvas.customer"
                     ></b-input>
                   </b-field>
-                  <b-field label="アーリーアダプター" label-position="on-border">
+                  <b-field
+                    label="アーリーアダプター"
+                    label-position="on-border"
+                  >
                     <b-input
                       :maxlength="maxLength"
                       type="textarea"
@@ -240,6 +240,13 @@
             v-model="canvas.memo"
           ></b-input>
         </b-field>
+        <b-button
+          type="is-info"
+          icon-left="export"
+          @click="exportJson(JSON.stringify(canvas),'leanCanvasData.json')"
+        >
+          JSONエクスポート
+        </b-button>
       </section>
     </div>
 
